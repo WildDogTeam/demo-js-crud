@@ -3,7 +3,7 @@
 var TR=$("<tr><td><input type='checkbox'></td><td class='td-uname'></td><td class='td-email'></td></tr>");
 var TREdit=$("<tr><td><input type='checkbox' disabled='disabled'></td><td><input></td><td><input></td></tr>");
 
-var ref=new Wilddog("https://test123.wilddogio.com/demo-curd/users");
+var ref=new Wilddog("https://crud.wilddogio.com/demo-crud/users");
 
 $("#btn-user-add").click(function(){
 	//add user
