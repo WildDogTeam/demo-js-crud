@@ -7,6 +7,7 @@
 ## 在线示例
 http://crud.wilddogapp.com/
 
+[![一个demo页面的快照](crud.png)](http://crud.wilddogapp.com/)
 
 ## 本地运行
 本地运行需要依赖node.js和gulp。
