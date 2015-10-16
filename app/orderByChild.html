@@ -42,7 +42,7 @@ byChildRef.orderByChild("age").on("child_changed",function(snap , prvKey){
 function insert(key,value,prvKey){
     var ele=$("<div></div>").html(key+" "+JSON.stringify(value)).attr("data-key",key);
     if(prvKey==null){
-        $("#data-div").append(ele);
+        $("#data-div").prepend(ele);
     }
     else{
         var prvEle=$("#data-div div[data-key="+prvKey+"]");
