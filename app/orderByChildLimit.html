@@ -1,0 +1,61 @@
+
+<html>
+<head>
+</head>
+<body>
+<div id="data-div">
+    
+</div>
+<script type=text/javascript src=https://cdn.wilddog.com/js/client/current/wilddog.js></script>
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+<script>
+var ref = new Wilddog("https://acdc.wilddogio.com");
+
+var byChildRef = ref.child("byChild");
+
+byChildRef.orderByChild("age").limitToLast(3).on("child_added",function(snap , prvKey){
+    console.log("按照age排序查询最大的三个,新节点被添加 " ,snap.key() , " : " , snap.val() , " prior: " , snap.getPriority() , " 上一个key是： " , prvKey);
+    insert(snap.key(),snap.val(),prvKey)
+})
+byChildRef.orderByChild("age").limitToLast(3).on("child_moved",function(snap , prvKey){
+    console.log("按照age排序查询最大的三个,节点被移动 " , snap.key() , " : " , snap.val() , " prior: " , snap.getPriority() , " 上一个key是: " , prvKey);
+    remove(snap.key())
+    insert(snap.key(),snap.val(),prvKey)
+
+})
+byChildRef.orderByChild("age").limitToLast(3).on("child_removed",function(snap , prvKey){
+    console.log("按照age排序查询最大的三个,节点被删除 " , snap.key() , " : " , snap.val() , " prior: " , snap.getPriority() , " 上一个key是: " , prvKey);
+    remove(snap.key())
+})
+byChildRef.orderByChild("age").limitToLast(3).on("child_changed",function(snap , prvKey){
+    console.log("按照age排序查询最大的三个,节点被改变 " , snap.key() , " : " , snap.val() , " prior: " , snap.getPriority() , " 上一个key是: " , prvKey);
+    changeValue(snap.key(),snap.val())
+})
+
+function insert(key,value,prvKey){
+    var ele=$("<div></div>").html(key+" "+JSON.stringify(value)).attr("data-key",key);
+    if(prvKey==null){
+        $("#data-div").prepend(ele);
+    }
+    else{
+        var prvEle=$("#data-div div[data-key="+prvKey+"]");
+        ele.insertAfter(prvEle);
+    }
+}
+function remove(key){
+    $("#data-div div[data-key="+key+"]").remove();
+}
+function changeValue(key,value){
+    
+    $("#data-div div[data-key="+key+"]").html( key+" "+JSON.stringify(value) )
+}
+
+</script>
+
+</body>
+</html>
